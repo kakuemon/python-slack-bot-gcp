@@ -1,4 +1,4 @@
-# python-slack-bot-2020
+# python-slack-bot-gcp
 pythonにて実装するslack botです。メッセージを送ると反応します。
 ZoomAPIを利用してURLを生成します。
 test
