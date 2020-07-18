@@ -172,23 +172,11 @@ Informationの入力を終えると「Apps Credentials」が見えるように�
 2020年8月11日の23:59まで使用可能なTOKENとなる。ここで生成されたTOKENをコピーして手元にメモしておく。(後ほど利用します)
 
 
-### Herokuのアプリを作成する
 
-Herokuのアプリを作成して必要な設定を行います。
 
-まずHerokuのdashboardへアクセスして「New」>「Create New app」を選択します。
+Slackbotが実際に動作する環境がGCPになります。
 
-App nameへSlackアプリのアプリ名を入れます。このアプリ名はHerokuアプリの外部アドレスに利用されるので、Heroku内でアプリ名が被る場合に利用できないと出ます。
-
-<img src="https://user-images.githubusercontent.com/55194591/87147449-a33ae000-c2e7-11ea-9cfb-fc726634aae9.png" width=50%>
-
-作成されると、Herokuアプリ名のメニューに入ります。
-
-### Herokuの環境変数にSlackbotで利用するシークレットを登録
-
-Slackbotが実際に動作する環境がHerokuになります。そのため、Herokuの実行環境にSlackbotがSlackと通信する際に利用するapiのトークンやシークレットを覚えさせる必要があります。
-
-Herokuのアプリメニューにある「Settings」の「Config Vars」へ以下の5つを登録します。
+app.yaml.sampleをコピーして下記の4つを登録します
 
 |KEY|VALUE|
 |---|---|
