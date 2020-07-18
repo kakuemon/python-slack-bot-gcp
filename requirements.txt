@@ -1,5 +1,5 @@
-slackeventsapi
-requests
+slackeventsapi==2.2.0
+requests==2.22.0
 pandas==0.25.1
 Flask==1.1.2
 google-api-core==1.21.0
