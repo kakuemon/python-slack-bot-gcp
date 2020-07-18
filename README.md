@@ -33,8 +33,7 @@ Pythonの実行環境は3.7以降を対象にしています。
   - Mac:ターミナル(iTerm2など)
   - エディター, IDE内蔵のターミナルでも作業できます
 - Git: なるべく最新
-- Heroku Cli
-  - [The Heroku CLI | Heroku Dev Center](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+- GCP：Gmail アドレスがあればOK
 
 ### 事前準備
 
@@ -43,9 +42,8 @@ Pythonの実行環境は3.7以降を対象にしています。
 - GitHub
   - [登録](https://github.com/join)
   - [ログイン](https://github.com/login)
-- Heroku
-  - [登録](https://signup.heroku.com/jp)
-  - [ログイン](https://id.heroku.com/login)
+- GCP
+  - [トップ](https://console.cloud.google.com/?hl=ja)
 - Slack
   - [新規ワークスペース作成](https://slack.com/get-started#/create)
 
@@ -55,57 +53,33 @@ Slackbotを作る際には、開発用のSlackワークスペースを各自で�
 
 ### 作業ディレクトリ
 
-基本的にお好きな場所で構いません。わかりやすい位置としてホームフォルダのドキュメントを基準に操作します。
+GCP上で作業します。Google chromeをご使用下さい。
+
+
+### GCPにて新規Pj作成
+
+GCPにログインして新規PJを作成する。
+
+<img src="https://user-images.githubusercontent.com/55194591/87849654-2b8f3580-c925-11ea-8b14-b7f27b087515.png" width=50%>
+
+プロジェクト名とプロジェクトIDはわかりやすいように同一にしておく。
+
+<img src="https://user-images.githubusercontent.com/55194591/87849659-2df18f80-c925-11ea-9f94-51e9e5a17331.png" width=50%>
+
+### GCPのコンソールを開く
+
+下記のように右上のコンソールボタンを押すとGCPのコンソールが開かれる。<br>
+このコンソールはGmail単位で管理される
+
+<img src="https://user-images.githubusercontent.com/55194591/87849815-8ecd9780-c926-11ea-9f03-2ed0d9eccbd4.png" width=50%>
+
+GitHubリポジトリを、クローンします。GCPのコンソールにてクローンしてください。
+
 
 ```cmd
-cd ~\Documents
+git clone https://github.com/kakuemon/python-slack-bot-gcp.git
 ```
 
-### リポジトリをフォークしてClone
-
-GitHubリポジトリを、参加者のGitHubのアカウントへフォークします。そのフォークしたリポジトリをローカル環境にCloneします。
-
-GitHubのフォーク方法はヘルプを確認します。
-
-[リポジトリをフォークする - GitHub ヘルプ](https://help.github.com/ja/github/getting-started-with-github/fork-a-repo)
-
-フォーク後はローカル環境にcloneします。コマンドでの操作はこちらです。
-github登録名は適宜書き換えてください。
-
-```cmd
-git clone https://github.com/{github登録名}/python-slack-bot-2020.git
-```
-
-### ローカル開発環境の用意
-
-Pythonはシステムにインストールされた実行環境以外の仮想環境を用意できます。仮想環境を作ることでシステム側の環境を汚すこと無く開発環境の構築ができます。
-
-仮想環境は以下のコマンドで作成します
-
-```cmd
-python -m venv .venv
-```
-
-仮想環境を利用するときには、以下のコマンドを実行します。
-windowsの場合はこちら
-
-```cmd
-.\.venv\Script\activate.bat
-```
-macの場合はこちら
-```cmd
-.\.venv\bin\activate
-```
-仮想環境上に必要なパッケージをインストールします
-```cmd
-(.venv) > pip install -r requirements.txt
-```
-
-仮想環境を終了する場合は以下のコマンドを実行します。
-
-```cmd
-(.venv)deactivate
-```
 ## Slackアプリの作成と設定
 
 まず初めにBotとなるSlackアプリをSlack上で作成します。
@@ -172,8 +146,6 @@ Informationの入力を終えると「Apps Credentials」が見えるように�
 2020年8月11日の23:59まで使用可能なTOKENとなる。ここで生成されたTOKENをコピーして手元にメモしておく。(後ほど利用します)
 
 
-
-
 Slackbotが実際に動作する環境がGCPになります。
 
 app.yaml.sampleをコピーして下記の4つを登録します
@@ -182,6 +154,7 @@ app.yaml.sampleをコピーして下記の4つを登録します
 |---|---|
 |SLACK_BOT_TOKEN|Slackアプリ設定で控えた「Bot User OAuth Access Token」|
 |SLACK_SIGNING_SECRET|Slackアプリ設定で控えた「Signing Secret」|
+|SLACK_VERIFICATION_TOKEN|slackアプリのVerification Token|
 |ZOOM_TOKEN|zoom apiにて控えた「Zoom Token」|
 |ZOOM_USER_ID|zoomに登録した際のメールアドレス|
 
@@ -246,7 +219,7 @@ Slack Event APIを使い、Slackワークスペース上に起きたイベント
 
 次に「Request URL」にエンドポイントURLを設定します。Herokuのアプリ上でbotアプリが待機しているアドレスを入力します。
 
-> https://[Herokuのアプリ名].herokuapp.com/slack/events
+> {GCPで出力されたURL}/slack/events
 
 <img src="https://user-images.githubusercontent.com/55194591/87151465-dcc31980-c2ee-11ea-9254-44eed805e202.png" width=70%>
 
@@ -289,19 +262,6 @@ Slackアプリのスコープを扱ったときに、イベントによるスコ
 - [【Python＋heroku】Python入れてない状態からherokuで何か表示するまで（前編） - Qiita](https://qiita.com/it_ks/items/afd1bdb792d41d0e1145#%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)
 - [API Events | Slack](https://api.slack.com/events)
 
-## おまけ
-
-### ローカル開発環境からHerokuへデプロイする
-
-GitHub Actionsを使ってのデプロイではなく、ローカル環境からHerokuへデプロイする手段を紹介します。
-
-`heroku login`を行った後に、herokuへのデプロイ用のgitリポジトリの登録、pushを行います。
-
-```cmd
-
-heroku git:remote -a [herokuのアプリ名]
-git push heroku master
-```
 
 
 こちらを参考にさせていただきました！
