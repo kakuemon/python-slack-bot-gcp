@@ -195,6 +195,11 @@ echo ${DEVSHELL_PROJECT_ID}
 gcloud config set project {設定したPROJECT_ID}
 ```
 
+次に下記コマンドにてローカルにリポジトリをクローンする
+```cmd
+https://github.com/kakuemon/python-slack-bot-gcp.git
+cd python-slack-bot-gcp
+```
 次にブラウザ上のコンソールで下記を実行する。
 
 
@@ -205,59 +210,7 @@ gcloud config set project {設定したPROJECT_ID}
 
 
 
-### Herokuの認証情報を取得する
 
-Heroku Cli（herokuコマンド）で連携時に必要な認証情報を取得します。
-
-ローカル開発環境でherokuのログインを行います。
-
-```cmd
-heroku login
-
-heroku: Press any key to open up the browser to login or q to exit:
-Opening browser to https://cli-auth.heroku.com/auth/cli/browser/******[専用のトークン文字列が出ます]
-Logging in... done
-Logged in as ***@**.com
-```
-
-ログイン後、HerokuのAPI Keyを表示して控えてください。
-
-```cmd
-heroku auth:token
-
- »   Warning: token will expire **/**/****
- »   Use heroku authorizations:create to generate a long-term token
-[api keyが表示されます]
-```
-
-注意:このAPI Keyは外部に漏らさないように注意してください。Herokuへの全権限を持った認証キーとなります。
-
-
-### GitHub ActionsでHerokuへデプロイ
-
-GitHub ActionsはCI/CDと呼ばれている、継続的なアプリのデプロイを行うサービスです。
-
-[Actions | GitHub](https://github.co.jp/features/actions)
-
-GitHubのリポジトリでは基本的に利用できます。定義ファイルとなる `.github/workflows/*.yml`を用意することで、GitHubのリポジトリにPush, PRなどを行うことで自動的にデプロイをします。`*.yml`ファイルはワークフローと呼ばれています。
-
-今回は、GitHubへ変更のpushを行ったときに自動的にHerokuへデプロイを行う設定を用意しています。
-
-[Herokuへのデプロイを行う workflow.yml](.github/workflows/workflow.yml)
-
-このワークフローは変数を設定しています。HerokuのAPI Key、Herokuのアプリ名、Herokuでログインするときのメールアドレスの3つを設定します。
-
-フォークしたハンズオンのプロジェクトページから「Settings」ページへ進み、「Secrets」のページへ進みます。
-
-<img src="https://user-images.githubusercontent.com/55194591/87151453-d7fe6580-c2ee-11ea-937a-f81fbd0c0dde.png" width=70%>
-
-「New secret」ボタンから変数を追加します。
-
-|変数名|値|
-|---|---|
-|HEROKU_API_KEY|[`heroku auth:token` で取得したトークン]|
-|HEROKU_APP_NAME|[Herokuのアプリ名]|
-|HEROKU_EMAIL|[Herokuのログインで利用するメールアドレス]|
 
 <br>
 <img src="https://user-images.githubusercontent.com/55194591/87151463-db91ec80-c2ee-11ea-9a18-2b76c67390e5.png" width=80%>
