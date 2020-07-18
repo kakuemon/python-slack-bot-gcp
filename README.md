@@ -186,6 +186,18 @@ app.yaml.sampleをコピーして下記の4つを登録します
 |ZOOM_USER_ID|zoomに登録した際のメールアドレス|
 
 
+下記コマンドにてGCPアプリのProject IDを確認する
+```cmd
+echo ${DEVSHELL_PROJECT_ID}
+```
+もしセットされていない場合(上記コマンドにて空がかえってくる)は下記コマンドにてセットする。
+```cmd
+gcloud config set project {設定したPROJECT_ID}
+```
+
+次にブラウザ上のコンソールで下記を実行する。
+
+
 
 <img src="https://user-images.githubusercontent.com/55194591/87147458-a46c0d00-c2e7-11ea-8c11-afef1a0d9082.png" width=70%>
 
