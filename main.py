@@ -10,7 +10,6 @@ from google.cloud import storage
 from flask import Flask
 from slack import WebClient
 from slackeventsapi import SlackEventAdapter
-import logging
 
 """ Usage of Zoom API """
 from Zoom import Zoom_API
