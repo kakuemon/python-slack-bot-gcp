@@ -1,3 +1,5 @@
+slackbot==0.5.6
+slacker==0.14.0
 slackeventsapi==2.2.0
 requests==2.22.0
 pandas==0.25.1
