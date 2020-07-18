@@ -6,8 +6,8 @@ test
 
 
 - SlackアプリをSlackに設定する方法
+- GCPへのデプロイ
 - GitHub Actionsの基本的な扱い
-- Herokuへのデプロイ
 - SlackbotからWeb APIを操作して結果をbotが答える
 - Zoom APIの利用
 
