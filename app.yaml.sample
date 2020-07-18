@@ -1,0 +1,21 @@
+runtime: python37
+entrypoint: gunicorn -b :$PORT main:app
+
+env_variables:
+  SLACK_BOT_TOKEN: ""
+  SLACK_SIGNING_SECRET: ""
+  ZOOM_TOKEN: ""
+  ZOOM_USER_ID: ""  ## your Email Address or ID
+  # All URLs ending in .gif .png or .jpg are treated as paths to
+# static files in the static/ directory. The URL pattern is a
+# regular expression, with a grouping that is inserted into the
+# path to the file.
+handlers:
+# All URLs ending in .gif .png or .jpg are treated as paths to
+# static files in the static/ directory. The URL pattern is a
+# regular expression, with a grouping that is inserted into the
+# path to the file.
+- url: /(.*\.(gif|png|jpg))$
+  static_files: static/\1
+  upload: static/.*\.(gif|png|jpg)$
+  # ...
