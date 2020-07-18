@@ -26,7 +26,6 @@ slack_events_adapter = SlackEventAdapter(slack_signing_secret, "/slack/events", 
 # Create a WebClient for your bot to use for Web API requests
 slack_bot_token = os.environ["SLACK_BOT_TOKEN"]
 slack_client    = WebClient(slack_bot_token)
-SLACK_VERIFICATION_TOKEN = os.environ["SLACK_VERIFICATION_TOKEN"]
 
 # Zoom setting
 ZOOM_USER_ID    = os.environ["ZOOM_USER_ID"]
@@ -69,24 +68,6 @@ def handle_message_greeting(event_data):
 @app.route('/')
 def root():
     return "hello world!"
-
-
-@app.route('/slack/events', methods=['POST'])
-def slack_event():
-    logging.debug("Request payload: %s", request.data)
-    event = request.get_json()
-    if 'token' not in event:
-        logging.error(
-            "There is no verification token in the JSON, discarding event")
-        abort(401)
-    if event['token'] != verification_token:
-        logging.error("Wrong verification token in JSON, discarding event")
-        abort(403)
-    if 'challenge' in event:
-        return jsonify({'challenge': event['challenge']})
-    else:
-        bot.handle_event(Event(event))
-        return jsonify({})
 
 @slack_events_adapter.on("message")
 def handle_message_greeting_jp(event_data):
