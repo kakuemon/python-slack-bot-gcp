@@ -2,7 +2,7 @@ slackeventsapi==2.2.0
 slackclient==2.7.2
 requests==2.22.0
 pandas==0.25.1
-Flask==1.1.2
+Flask==2.3.2
 google-api-core==1.21.0
 google-auth==1.18.0
 google-cloud==0.34.0
